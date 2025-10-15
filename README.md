@@ -83,6 +83,10 @@ Instantaneamente, um novo Google Doc será criado na pasta de resultados!
 - [`prompt-gemini.md`](./prompt-gemini.md) - Prompt de IA Generativa otimizado
 - [`blueprint-make.json`](https://drive.google.com/file/d/17n_W6wyQhLBShPXSWreUM4TTZSdp1OGS/view?usp=sharing) - Template do cenário Make.com
 
+### 📖 Documentação Interativa
+
+[**📚 Documentação Completa no Notion**](https://comunica-ai.notion.site/ComunicaIA-Seu-Primeiro-Copiloto-de-IA-28d37f39c30e8076ac6bebefe5b0babc) - Versão interativa e detalhada do projeto
+
 ### 🎥 Demonstração
 
 [**▶️ Vídeo de Pitch e Workflow**](#) *(em breve)*
