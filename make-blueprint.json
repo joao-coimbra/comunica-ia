@@ -1,0 +1,664 @@
+{
+    "name": "Projeto ComunicaIA",
+    "flow": [
+        {
+            "id": 8,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 1450113,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 150
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "FormToAI"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 7,
+            "module": "gemini-ai:createACompletionGeminiPro",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 5803588
+            },
+            "mapper": {
+                "model": "gemini-2.5-pro",
+                "contents": [
+                    {
+                        "role": "user",
+                        "parts": [
+                            {
+                                "text": "Crie o texto de comunicação interna com base nos dados acima.",
+                                "type": "text"
+                            }
+                        ]
+                    }
+                ],
+                "generationConfig": {
+                    "thinkingConfig": {}
+                },
+                "system_instruction": {
+                    "parts": [
+                        {
+                            "text": "# Personalidade\r\nVocê é 'ComunicaIA', um assistente especialista em comunicação interna, focado em clareza, objetividade e engajamento. Sua missão é traduzir tópicos em textos corporativos bem estruturados que refletem a cultura de uma empresa moderna e eficiente. Sua escrita equilibra perfeitamente a profundidade necessária com a brevidade exigida pelo canal de comunicação.\r\n\r\n# Tarefa\r\nSua tarefa é gerar um texto para comunicação interna com base nos inputs do usuário. Você deve seguir estritamente o tipo de texto e o tom de voz especificados. Sua resposta deve ter uma completude apropriada ao meio: mensagens para WhatsApp devem ser concisas e diretas, enquanto e-mails e avisos institucionais devem ser mais detalhados e completos, sem serem prolixos.\r\n\r\n# Contexto\r\nA empresa preza por uma comunicação transparente e eficaz. Evite jargões excessivos e vá direto ao ponto. O usuário fornecerá três informações-chave:\r\n1. Tópicos Principais: {{8.`Tópicos Principais`}}\n2. Tipo de Texto: {{8.`Qual o tipo de texto?`}}\n3. Tom de Voz: {{8.`Qual o tom de voz desejado?`}}\n\r\nVocê deve usar essas informações para estruturar sua resposta. Se o tipo de texto for \"E-mail\", inclua um campo \"Assunto:\" claro e objetivo. Se for \"Resumo de Reunião\", estruture com \"Data:\", \"Participantes:\", \"Pautas Discutidas:\" e \"Próximos Passos:\". Para \"WhatsApp\", use uma linguagem mais direta, podendo incluir emojis de forma profissional. Para \"Aviso Institucional\", seja formal e informativo.\r\n\r\n# Saída\r\nO texto deve ser entregue em formato Markdown, pronto para ser copiado e colado. Não inclua nenhuma observação, introdução ou comentário seu antes ou depois do texto solicitado. Apenas o resultado final."
+                        }
+                    ]
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 150
+                },
+                "restore": {
+                    "expect": {
+                        "model": {
+                            "mode": "chose",
+                            "label": "Gemini 2.5 Pro"
+                        },
+                        "contents": {
+                            "mode": "chose",
+                            "items": [
+                                {
+                                    "role": {
+                                        "mode": "chose",
+                                        "label": "User"
+                                    },
+                                    "parts": {
+                                        "mode": "chose",
+                                        "items": [
+                                            {
+                                                "type": {
+                                                    "mode": "chose",
+                                                    "label": "Text"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "url_context": {
+                            "mode": "chose"
+                        },
+                        "code_execution": {
+                            "mode": "chose"
+                        },
+                        "safetySettings": {
+                            "mode": "chose"
+                        },
+                        "generationConfig": {
+                            "nested": {
+                                "stopSequences": {
+                                    "mode": "chose"
+                                },
+                                "thinkingConfig": {
+                                    "nested": {
+                                        "include_thoughts": {
+                                            "mode": "chose"
+                                        }
+                                    }
+                                },
+                                "responseMimeType": {
+                                    "mode": "chose",
+                                    "label": "Empty"
+                                },
+                                "responseModalities": {
+                                    "mode": "chose"
+                                }
+                            }
+                        },
+                        "system_instruction": {
+                            "nested": {
+                                "parts": {
+                                    "mode": "chose",
+                                    "items": [
+                                        null
+                                    ]
+                                }
+                            }
+                        },
+                        "google_search_context": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "gemini-ai-q9zyjp"
+                            },
+                            "label": "My Gemini AI connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:gemini-ai-q9zyjp",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "model",
+                        "type": "select",
+                        "label": "AI Model",
+                        "required": true
+                    },
+                    {
+                        "name": "contents",
+                        "spec": [
+                            {
+                                "name": "role",
+                                "type": "select",
+                                "label": "Role",
+                                "options": [
+                                    {
+                                        "label": "User",
+                                        "value": "user"
+                                    },
+                                    {
+                                        "label": "Model",
+                                        "value": "model"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "parts",
+                                "spec": [
+                                    {
+                                        "name": "type",
+                                        "type": "select",
+                                        "label": "Message Type",
+                                        "options": [
+                                            {
+                                                "label": "Text",
+                                                "value": "text",
+                                                "nested": [
+                                                    {
+                                                        "name": "text",
+                                                        "type": "text",
+                                                        "label": "Text",
+                                                        "required": false
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "label": "File",
+                                                "value": "file",
+                                                "nested": [
+                                                    {
+                                                        "name": "file_data",
+                                                        "spec": [
+                                                            {
+                                                                "name": "mime_type",
+                                                                "type": "text",
+                                                                "label": "Mime Type",
+                                                                "required": false
+                                                            },
+                                                            {
+                                                                "help": "You get this from the 'Upload a File' module.",
+                                                                "name": "file_uri",
+                                                                "type": "text",
+                                                                "label": "File URI",
+                                                                "required": false
+                                                            }
+                                                        ],
+                                                        "type": "collection",
+                                                        "label": "File Data",
+                                                        "required": false
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "type": "array",
+                                "label": "Parts"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Messages",
+                        "required": true
+                    },
+                    {
+                        "name": "system_instruction",
+                        "spec": [
+                            {
+                                "name": "parts",
+                                "spec": {
+                                    "name": "value",
+                                    "spec": [
+                                        {
+                                            "name": "text",
+                                            "type": "text",
+                                            "label": "Value"
+                                        }
+                                    ],
+                                    "type": "collection",
+                                    "label": "Prompt"
+                                },
+                                "type": "array",
+                                "label": "Prompts"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "System Instructions"
+                    },
+                    {
+                        "name": "safetySettings",
+                        "spec": [
+                            {
+                                "name": "category",
+                                "type": "select",
+                                "label": "Category",
+                                "options": [
+                                    {
+                                        "label": "Harassment content",
+                                        "value": "HARM_CATEGORY_HARASSMENT"
+                                    },
+                                    {
+                                        "label": "Hate speech and content",
+                                        "value": "HARM_CATEGORY_HATE_SPEECH"
+                                    },
+                                    {
+                                        "label": "Sexually explicit content.",
+                                        "value": "HARM_CATEGORY_SEXUALLY_EXPLICIT"
+                                    },
+                                    {
+                                        "label": "Dangerous content:",
+                                        "value": "HARM_CATEGORY_DANGEROUS_CONTENT"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "threshold",
+                                "type": "select",
+                                "label": "Threshold",
+                                "options": [
+                                    {
+                                        "label": "Block low and above.",
+                                        "value": "BLOCK_LOW_AND_ABOVE"
+                                    },
+                                    {
+                                        "label": "Block medium and above.",
+                                        "value": "BLOCK_MEDIUM_AND_ABOVE"
+                                    },
+                                    {
+                                        "label": "Block only high.",
+                                        "value": "BLOCK_ONLY_HIGH"
+                                    },
+                                    {
+                                        "label": "Block none.",
+                                        "value": "BLOCK_NONE"
+                                    }
+                                ]
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Safety Settings"
+                    },
+                    {
+                        "name": "generationConfig",
+                        "spec": [
+                            {
+                                "name": "stopSequences",
+                                "spec": {
+                                    "name": "value",
+                                    "type": "text",
+                                    "label": "Stop Sequence"
+                                },
+                                "type": "array",
+                                "label": "Stop Sequences"
+                            },
+                            {
+                                "name": "responseModalities",
+                                "type": "select",
+                                "label": "Response Modalities",
+                                "multiple": true,
+                                "validate": {
+                                    "enum": [
+                                        "text",
+                                        "image"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "maxOutputTokens",
+                                "type": "number",
+                                "label": "Max Output Tokens"
+                            },
+                            {
+                                "name": "temperature",
+                                "type": "number",
+                                "label": "Temperature",
+                                "validate": {
+                                    "max": 1,
+                                    "min": 0
+                                }
+                            },
+                            {
+                                "name": "topP",
+                                "type": "number",
+                                "label": "Top P",
+                                "validate": {
+                                    "max": 1,
+                                    "min": 0
+                                }
+                            },
+                            {
+                                "name": "topK",
+                                "type": "number",
+                                "label": "Top K"
+                            },
+                            {
+                                "name": "thinkingConfig",
+                                "spec": [
+                                    {
+                                        "name": "thinkingBudget",
+                                        "type": "number",
+                                        "label": "Thinking Budget"
+                                    },
+                                    {
+                                        "name": "include_thoughts",
+                                        "type": "boolean",
+                                        "label": "Include Thoughts"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Thinking Config"
+                            },
+                            {
+                                "name": "responseMimeType",
+                                "type": "select",
+                                "label": "Response Mime Type"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Generation configurations"
+                    },
+                    {
+                        "name": "tools",
+                        "type": "any",
+                        "label": "Tools"
+                    },
+                    {
+                        "name": "tool_config",
+                        "type": "any",
+                        "label": "Tool Config"
+                    },
+                    {
+                        "name": "url_context",
+                        "type": "boolean",
+                        "label": "URL Context"
+                    },
+                    {
+                        "name": "google_search_context",
+                        "type": "boolean",
+                        "label": "Google Search Grounding"
+                    },
+                    {
+                        "name": "code_execution",
+                        "type": "boolean",
+                        "label": "Code Execution"
+                    }
+                ]
+            },
+            "onerror": [
+                {
+                    "id": 11,
+                    "module": "google-docs:createADocument",
+                    "version": 1,
+                    "parameters": {
+                        "__IMTCONN__": 5807532
+                    },
+                    "filter": {
+                        "name": "Catch Error",
+                        "conditions": []
+                    },
+                    "mapper": {
+                        "name": "FALHA AO GERAR - {{8.`Qual o tipo de texto?`}} - {{formatDate(now; \"YYYY-MM-DD HH:mm\")}}",
+                        "content": "# ERRO NA GERAÇÃO DO DOCUMENTO\r\n\r\nOcorreu uma falha ao tentar processar sua solicitação com a Inteligência Artificial.\r\n\r\n**Data e Hora do Erro:**\r\n{{formatDate(now; \"YYYY-MM-DD HH:mm:ss\")}}\r\n\r\n**Detalhes Técnicos da Falha:**\n {{7.error.message}}\n\n**Dados Enviados que Causaram o Erro:**\r\n*   **Tópicos:** {{8.`Tópicos Principais`}}\n*   **Tipo de Texto:** {{8.`Qual o tipo de texto?`}}\n*   **Tom de Voz:** {{8.`Qual o tom de voz desejado?`}}\n\r\n**O que fazer?**\r\n1.  Verifique se os tópicos enviados são claros e não contêm caracteres especiais que possam ter causado o problema.\r\n2.  Tente enviar a solicitação novamente.\r\n3.  Se o erro persistir, entre em contato com o suporte de TI.",
+                        "destination": "drive",
+                        "header": false,
+                        "footer": false,
+                        "folderId": "/1tfxF6QTj5L2NQZ6L0fv_jJ2XB-MlT_N-/1bqz1crpkoqUf5bVx4feIPZQHn-ySKduZ/13GzASE1ZS48uf4CRnSft1cI4RfNSkZlS/1hM75UzJqbNK91cGovouubouJqzgwG4PB"
+                    },
+                    "metadata": {
+                        "designer": {
+                            "x": 699,
+                            "y": 311
+                        },
+                        "restore": {
+                            "parameters": {
+                                "__IMTCONN__": {
+                                    "label": "App Response (joao.benatti.coimbra@gmail.com)",
+                                    "data": {
+                                        "scoped": "true",
+                                        "connection": "google"
+                                    }
+                                }
+                            },
+                            "expect": {
+                                "destination": {
+                                    "label": "My Drive"
+                                },
+                                "folderId": {
+                                    "mode": "chose",
+                                    "path": [
+                                        "unifecaf",
+                                        "Fundamentos",
+                                        "Projeto",
+                                        "Resultados - Projeto Copiloto IA"
+                                    ]
+                                }
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "__IMTCONN__",
+                                "type": "account:google",
+                                "label": "Connection",
+                                "required": true
+                            }
+                        ],
+                        "expect": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name",
+                                "required": true
+                            },
+                            {
+                                "name": "content",
+                                "type": "text",
+                                "label": "Content",
+                                "required": true
+                            },
+                            {
+                                "name": "destination",
+                                "type": "select",
+                                "label": "Choose a Drive",
+                                "required": true,
+                                "validate": {
+                                    "enum": [
+                                        "drive",
+                                        "share",
+                                        "team"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "header",
+                                "type": "boolean",
+                                "label": "Insert a Header",
+                                "required": true
+                            },
+                            {
+                                "name": "footer",
+                                "type": "boolean",
+                                "label": "Insert a Footer",
+                                "required": true
+                            },
+                            {
+                                "name": "folderId",
+                                "type": "folder",
+                                "label": "New Document's Location",
+                                "required": true
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "module": "google-docs:createADocument",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 5807532
+            },
+            "mapper": {
+                "name": "Texto Gerado: {{8.`Carimbo de data/hora`}}",
+                "footer": false,
+                "header": false,
+                "content": "{{7.result}}",
+                "folderId": "/1tfxF6QTj5L2NQZ6L0fv_jJ2XB-MlT_N-/1bqz1crpkoqUf5bVx4feIPZQHn-ySKduZ/13GzASE1ZS48uf4CRnSft1cI4RfNSkZlS/1hM75UzJqbNK91cGovouubouJqzgwG4PB",
+                "destination": "drive"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 706,
+                    "y": 18
+                },
+                "restore": {
+                    "expect": {
+                        "folderId": {
+                            "mode": "chose",
+                            "path": [
+                                "unifecaf",
+                                "Fundamentos",
+                                "Projeto",
+                                "Resultados - Projeto Copiloto IA"
+                            ]
+                        },
+                        "destination": {
+                            "label": "My Drive"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "App Response (joao.benatti.coimbra@gmail.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "name",
+                        "type": "text",
+                        "label": "Name",
+                        "required": true
+                    },
+                    {
+                        "name": "content",
+                        "type": "text",
+                        "label": "Content",
+                        "required": true
+                    },
+                    {
+                        "name": "destination",
+                        "type": "select",
+                        "label": "Choose a Drive",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share",
+                                "team"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "header",
+                        "type": "boolean",
+                        "label": "Insert a Header",
+                        "required": true
+                    },
+                    {
+                        "name": "footer",
+                        "type": "boolean",
+                        "label": "Insert a Footer",
+                        "required": true
+                    },
+                    {
+                        "name": "folderId",
+                        "type": "folder",
+                        "label": "New Document's Location",
+                        "required": true
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}

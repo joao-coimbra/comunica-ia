@@ -27,19 +27,22 @@ Resolver o gargalo operacional no setor de comunicação interna, onde a alta de
 
 ---
 
-## 🏗️ Arquitetura
+## 🏗️ Arquitetura Robusta
 
 ```
-Google Forms → Google Sheets → Google Apps Script → Make.com (Webhook) → Google Gemini API → Google Docs
+Google Forms → Google Sheets → Google Apps Script → Make.com (Webhook) → Google Gemini API → [Sucesso/Falha] → Google Docs
 ```
 
-### Fluxo de Funcionamento
+### Fluxo de Funcionamento com Tratamento de Erros
 
 1. **Entrada**: Colaborador preenche o Google Form com tópicos, tipo de texto e tom de voz
 2. **Gatilho**: Script no Google Apps Script é acionado automaticamente via `onFormSubmit`
 3. **Envio**: Dados são enviados em tempo real via webhook para o Make.com
 4. **Processamento**: Make.com envia os dados para a API do Google Gemini Pro
-5. **Saída**: Texto gerado é automaticamente criado em um Google Doc
+5. **Bifurcação Lógica**:
+   - ✅ **Sucesso**: Texto gerado é automaticamente criado em um Google Doc com título dinâmico
+   - ❌ **Falha**: Documento de erro é criado com log detalhado e próximos passos
+6. **Saída Centralizada**: Sempre um documento é gerado (sucesso ou erro) na mesma pasta
 
 ---
 
@@ -94,6 +97,9 @@ Instantaneamente, um novo Google Doc será criado na pasta de resultados!
 - ✨ **Melhoria da qualidade** geral dos textos
 - 💰 **Baixo custo** de implementação
 - 📈 **Escalabilidade** para múltiplas solicitações simultâneas
+- 🛡️ **Sistema robusto** com tratamento de erros
+- 🔄 **Feedback garantido** - sempre gera um documento (sucesso ou erro)
+- 📊 **Logs detalhados** para troubleshooting
 
 ---
 
@@ -121,6 +127,15 @@ Instantaneamente, um novo Google Doc será criado na pasta de resultados!
 - A qualidade da saída é proporcional à qualidade dos tópicos fornecidos
 - Necessidade de revisão humana final para validação
 - Adaptação dos colaboradores ao novo fluxo de trabalho
+
+## 🔮 Melhorias Futuras
+
+### Integração com Comunicação em Tempo Real
+- **Discord/Microsoft Teams**: Notificações automáticas com links diretos
+- **Logs públicos**: Falhas postadas em canais específicos para suporte rápido
+- **Dashboard**: Métricas de uso e performance em tempo real
+
+*Mantido fora do escopo atual para focar na automação central baseada em documentos*
 
 ---
 
