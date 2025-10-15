@@ -1,0 +1,43 @@
+# Credenciais e configurações sensíveis
+*.env
+.env.local
+.env.production
+config.json
+secrets.json
+
+# Chaves de API
+*_key.txt
+*_secret.txt
+credentials.json
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Arquivos temporários
+*.tmp
+*.temp
+~$*
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Documentos de rascunho
+draft/
+rascunho/
+temp/
+
+# Backups
+*.bak
+backup/
+
