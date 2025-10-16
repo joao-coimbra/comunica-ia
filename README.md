@@ -89,7 +89,7 @@ Instantaneamente, um novo Google Doc será criado na pasta de resultados!
 
 ### 🎥 Demonstração
 
-[**▶️ Vídeo de Pitch e Workflow**](#) *(em breve)*
+[**▶️ Vídeo de Pitch e Workflow**](https://drive.google.com/file/d/1YSQ9YiY7gLrP8B6dr1vohyzlWrOm6di-/view?usp=sharing)
 
 ---
 
